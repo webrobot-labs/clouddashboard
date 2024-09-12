@@ -117,11 +117,6 @@ We welcome contributions! Follow these steps:
     Make your changes and ensure they pass linting and tests.
     Push your changes and create a pull request.
 
-Support
-
-If you have any questions or need help, feel free to reach out via our Discord community:
-<br /> <a href="https://discord.gg/fyWtyNKmfX" style="width: 100%; display: flex; justify-content: center;"> <img src="https://discordapp.com/api/guilds/1111676875782234175/widget.png?style=banner2" alt="WebRobot Discord Banner"/> </a> <br />
-📜 License
 
 This project is licensed under the MIT License. For more information, see the LICENSE file.
 Contributors
