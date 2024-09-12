@@ -3,7 +3,7 @@ WebRobot Cloud Dashboard </br> [![GitHub Actions Workflow Status][check-workflow
 
 Welcome to the WebRobot Cloud Dashboard, an open-source project built with Next.js and Bootstrap CSS. This dashboard is designed to offer a comprehensive, high-performance solution for managing data extraction projects, tasks, and scheduling. Our goal is to make the platform intuitive, flexible, and easy to maintain, helping startups and enterprises build upon a robust foundation for their own use cases.
 
-    [!NOTE] WebRobot is focused on creating innovative data extraction and AI solutions. Contact us at contact@webrobot.com if you’d like to collaborate or discuss your project.
+    [!NOTE] WebRobot is focused on creating innovative data extraction and AI solutions. Contact us at ceo@webrobot.eu if you’d like to collaborate or discuss your project.
 
 Features
 
