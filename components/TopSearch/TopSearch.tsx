@@ -10,7 +10,7 @@ import {
   Input,
 } from "reactstrap";
 import Link from "next/link";
-import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
+import MultiSelectCheckbox from "react-multi-select-component";
 import {
   CheckBoxSelection,
   Inject,
@@ -116,7 +116,7 @@ const TopSearch: React.FC<TopSearchProps> = () => {
 
   const [modal2, setModal2] = useState<boolean>(false);
   const toggle2 = () => setModal2(!modal2);
-
+  const [selected, setSelected] = useState([]);
   const options1: Option[] = [
     { label: "Social comments on G20", value: 1 },
     { label: "Linkedin UK comments on G20", value: 2 },
@@ -539,7 +539,9 @@ const TopSearch: React.FC<TopSearchProps> = () => {
                       </span>
                     </div>
                   </div>
-                  <ReactMultiSelectCheckboxes options={options3} />
+                  <MultiSelectCheckbox options={options3}  value={selected}
+                      onChange={setSelected}
+                        labelledBy="Select"/>
                 </div>
               </FormGroup>
               <FormGroup className={TopSearchCss.simpal_check}>
@@ -609,7 +611,7 @@ const TopSearch: React.FC<TopSearchProps> = () => {
                       </span>
                     </div>
                   </div>
-                  <ReactMultiSelectCheckboxes options={options4} />
+                  <MultiSelectCheckbox options={options4} />
                 </div>
               </FormGroup>
               <FormGroup>
@@ -667,7 +669,7 @@ const TopSearch: React.FC<TopSearchProps> = () => {
                       </span>
                     </div>
                   </div>
-                  <ReactMultiSelectCheckboxes options={options5} />
+                  <MultiSelectCheckbox options={options5}  />
                 </div>
               </FormGroup>
               <div className={TopSearchCss.btn_block}>

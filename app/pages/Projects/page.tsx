@@ -1,12 +1,15 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ProjectList from "../../components/project-list/project-list";
+import ProjectList from "../../../components/Projects/ProjectList";
+
 
 // Define the structure of the project data (adjust based on your actual API response)
 interface Project {
   id: number;
   name: string;
   description: string;
+  frequency: string;
   // Add more fields based on your API structure
 }
 

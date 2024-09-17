@@ -14,7 +14,7 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import Breadcrumbs from "../breadcrumbs/breadcrumbs";
+import Breadcrumbs from "../BreadCrumbs/BreadCrumbs";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -79,7 +79,7 @@ function ProjectList({ projData }: ProjectListProps) {
                             <div className={ProductListCss.imgBlock}></div>
                             <div className={ProductListCss.item_info}>
                               <h6>
-                                <Link href="/project-bots-list">
+                                <Link href="/ProjectBots">
                                   <a>{item.name}</a>
                                 </Link>
                               </h6>
@@ -89,7 +89,7 @@ function ProjectList({ projData }: ProjectListProps) {
                               <p>{item.description}</p>
 
                               <Link
-                                href="/project-bots-list"
+                                href="/ProjectBots"
                                 data-tip="Click here or on the title to see the list of bots and datasets"
                               >
                                 <a>Project details</a>
