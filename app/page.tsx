@@ -5,7 +5,9 @@ import Link from "next/link";
 import InnerHeader from "../components/Header/Header";
 import Image from "next/image";
 //import Cookies from 'js-cookie';
-import { useRouter } from "next/navigation";
+
+import { useRouter } from "next/router";
+
 
 // Se hai delle props, puoi tipizzarle qui
 interface SelfServiceHomeProps {}

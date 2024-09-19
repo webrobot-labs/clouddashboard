@@ -10,12 +10,14 @@ import {
   Input,
 } from "reactstrap";
 import Link from "next/link";
-import MultiSelectCheckbox from "react-multi-select-component";
+
 import {
   CheckBoxSelection,
   Inject,
   MultiSelectComponent,
 } from "@syncfusion/ej2-react-dropdowns";
+
+
 import Image from "next/image";
 
 // Define the types for your data
@@ -33,36 +35,36 @@ interface VegetableData {
 interface TopSearchProps {}
 
 const TopSearch: React.FC<TopSearchProps> = () => {
-  const vegetableData: VegetableData[] = [
-    { vegetable: "KCOM Colourpage", category: "Lead Extraction", id: "item1" },
-    {
-      vegetable: "Yellow Page Spain ",
-      category: "Lead Extraction",
-      id: "item2",
-    },
-    { vegetable: "Yelp.de Germany", category: "Lead Extraction", id: "item3" },
-    {
-      vegetable: "Welmart Smart TVs",
-      category: "Product info extraction",
-      id: "item4",
-    },
-    {
-      vegetable: "Smart TVs on Amazon.it ",
-      category: "Product info extraction",
-      id: "item5",
-    },
-    {
-      vegetable: "French clinics reviews on Google",
-      category: "Customer reviews extraction",
-      id: "item6",
-    },
-    {
-      vegetable: 'Opinions on Jesus "catholicforum.com"',
-      category: "Web scraping for sentiment analysis",
-      id: "item7",
-    },
-    { category: "Trading info and trends data extraction", id: "item8" },
-  ];
+ 
+
+// Mappare Option[] in un array di oggetti con chiavi dinamiche
+const mapOptionsToDataSource = (options: Option[]): { [key: string]: Object }[] => {
+  return options.map(option => ({
+    label: option.label,
+    value: option.value
+  }));
+};
+
+// Funzione per mappare VegetableData in Option[]
+const mapVegetableDataToOptions = (vegetableData: VegetableData[]): Option[] => {
+  return vegetableData
+    .filter(veg => veg.vegetable)
+    .map(veg => ({
+      label: veg.vegetable as string,
+      value: parseInt(veg.id.replace('item', ''), 10)
+    }));
+};
+
+const vegetableData: VegetableData[] = [
+  { vegetable: "KCOM Colourpage", category: "Lead Extraction", id: "item1" },
+  { vegetable: "Yellow Page Spain", category: "Lead Extraction", id: "item2" },
+  { vegetable: "Yelp.de Germany", category: "Lead Extraction", id: "item3" },
+  { vegetable: "Welmart Smart TVs", category: "Product info extraction", id: "item4" },
+  { vegetable: "Smart TVs on Amazon.it", category: "Product info extraction", id: "item5" },
+  { vegetable: "French clinics reviews on Google", category: "Customer reviews extraction", id: "item6" },
+  { vegetable: 'Opinions on Jesus "catholicforum.com"', category: "Web scraping for sentiment analysis", id: "item7" },
+  { category: "Trading info and trends data extraction", id: "item8" },
+];
 
   const fields = {
     groupBy: "category",
@@ -70,39 +72,17 @@ const TopSearch: React.FC<TopSearchProps> = () => {
     value: "id",
   };
 
+
+  // Esempio con il nuovo dataset
   const vegetableData1: VegetableData[] = [
-    {
-      vegetable: "Linkedin UK comments on G20",
-      category: "Social comments on G20",
-      id: "item1",
-    },
-    {
-      vegetable: "Q&A about G20 on Quora ",
-      category: "Social comments on G20",
-      id: "item2",
-    },
-    {
-      vegetable: "Comments on G20 Twitter",
-      category: "Social comments on G20",
-      id: "item3",
-    },
-    {
-      vegetable: "Welmart Smart TVs",
-      category: "Smart TVs price comparison",
-      id: "item4",
-    },
-    {
-      vegetable: "Smart TVs on Amazon.it ",
-      category: "Smart TVs price comparison",
-      id: "item5",
-    },
-    {
-      vegetable: "French clinics reviews on Google",
-      category: "Customer reviews on Hospitals France",
-      id: "item6",
-    },
+    { vegetable: "Linkedin UK comments on G20", category: "Social comments on G20", id: "item1" },
+    { vegetable: "Q&A about G20 on Quora", category: "Social comments on G20", id: "item2" },
+    { vegetable: "Comments on G20 Twitter", category: "Social comments on G20", id: "item3" },
+    { vegetable: "Welmart Smart TVs", category: "Smart TVs price comparison", id: "item4" },
+    { vegetable: "Smart TVs on Amazon.it", category: "Smart TVs price comparison", id: "item5" },
+    { vegetable: "French clinics reviews on Google", category: "Customer reviews on Hospitals France", id: "item6" },
     { category: "What people think about religions worldwide", id: "item7" },
-    { category: "Cryptocurrencies price and trends", id: "item8" },
+    { category: "Cryptocurrencies price and trends", id: "item8" }
   ];
 
   const fields1 = {
@@ -156,6 +136,8 @@ const TopSearch: React.FC<TopSearchProps> = () => {
     { label: "Trading info and trends data extraction", value: 4 },
     { label: 'Another extraction bot/scraper category"', value: 5 },
   ];
+
+  const fieldscheckbox = { text: "label", value: "value" }; 
 
   return (
     <>
@@ -341,7 +323,7 @@ const TopSearch: React.FC<TopSearchProps> = () => {
                     id="mtselement"
                     popupHeight="400px"
                     fields={fields}
-                    dataSource={vegetableData}
+                    dataSource={mapOptionsToDataSource(mapVegetableDataToOptions(vegetableData))}
                     placeholder="Search category or bot/scraper"
                     mode="CheckBox"
                     enableGroupCheckBox={true}
@@ -427,7 +409,7 @@ const TopSearch: React.FC<TopSearchProps> = () => {
                     id="mtselement"
                     popupHeight="400px"
                     fields={fields1}
-                    dataSource={vegetableData1}
+                    dataSource={mapOptionsToDataSource(mapVegetableDataToOptions(vegetableData1))}
                     placeholder="Search project or bot/scraper"
                     mode="CheckBox"
                     enableGroupCheckBox={true}
@@ -539,9 +521,22 @@ const TopSearch: React.FC<TopSearchProps> = () => {
                       </span>
                     </div>
                   </div>
-                  <MultiSelectCheckbox options={options3}  value={selected}
-                      onChange={setSelected}
-                        labelledBy="Select"/>
+
+                  <MultiSelectComponent
+                    id="multiselect"
+                    dataSource={mapOptionsToDataSource(options3)}
+                    onChange={setSelected}
+                    fields={fieldscheckbox}
+                    placeholder="Select options"
+                    mode="CheckBox"
+                    popupHeight="250px"
+                    showSelectAll={true}
+                    enableGroupCheckBox={true}
+                    allowFiltering={true}
+                    filterBarPlaceholder="Search options"
+                  >
+                  <Inject services={[CheckBoxSelection]} />
+                </MultiSelectComponent>
                 </div>
               </FormGroup>
               <FormGroup className={TopSearchCss.simpal_check}>
@@ -611,7 +606,20 @@ const TopSearch: React.FC<TopSearchProps> = () => {
                       </span>
                     </div>
                   </div>
-                  <MultiSelectCheckbox options={options4} />
+                  <MultiSelectComponent
+                    id="multiselect"
+                    dataSource={mapOptionsToDataSource(options4)}
+                    fields={fieldscheckbox}
+                    placeholder="Select options"
+                    mode="CheckBox"
+                    popupHeight="250px"
+                    showSelectAll={true}
+                    enableGroupCheckBox={true}
+                    allowFiltering={true}
+                    filterBarPlaceholder="Search options"
+                  >
+                  <Inject services={[CheckBoxSelection]} />
+                </MultiSelectComponent>
                 </div>
               </FormGroup>
               <FormGroup>
@@ -669,7 +677,20 @@ const TopSearch: React.FC<TopSearchProps> = () => {
                       </span>
                     </div>
                   </div>
-                  <MultiSelectCheckbox options={options5}  />
+                  <MultiSelectComponent
+                    id="multiselect"
+                    dataSource={mapOptionsToDataSource(options4)}
+                    fields={fieldscheckbox}
+                    placeholder="Select options"
+                    mode="CheckBox"
+                    popupHeight="250px"
+                    showSelectAll={true}
+                    enableGroupCheckBox={true}
+                    allowFiltering={true}
+                    filterBarPlaceholder="Search options"
+                  >
+                  <Inject services={[CheckBoxSelection]} />
+                </MultiSelectComponent>
                 </div>
               </FormGroup>
               <div className={TopSearchCss.btn_block}>
