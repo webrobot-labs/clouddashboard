@@ -17,6 +17,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "experimentalDecorators": true,  // Abilita i decoratori
+    "emitDecoratorMetadata": true,   // Genera metadati per i decoratori
     "baseUrl": ".",
     "types": ["node", "jest", "@testing-library/jest-dom"],
     "plugins": [

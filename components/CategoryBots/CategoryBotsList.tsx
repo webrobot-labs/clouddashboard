@@ -9,6 +9,7 @@ import Image from "next/image";
 
 // Definizione del tipo per il singolo lavoro associato ai bot
 interface Job {
+  id : Number;
   description: string;
   creationDate: string;
 }
@@ -20,9 +21,12 @@ interface CatData {
   job: Job[];
 }
 
+
+
 // Definizione delle props del componente CategoryBotsList
 interface CategoryBotsListProps {
   singleData: CatData;
+  refetch: () => void;
 }
 
 const CategoryBotsList: React.FC<CategoryBotsListProps> = ({ singleData }) => {

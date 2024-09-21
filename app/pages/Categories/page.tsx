@@ -3,12 +3,14 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-// Definizione dei tipi per i dati di Categoria e Job
+// Definizione del tipo per il singolo lavoro associato ai bot
 interface Job {
+  id : Number;
   description: string;
   creationDate: string;
 }
 
+// Definizione del tipo per i dati di categoria che vengono passati come props
 interface CatData {
   id: number;
   name: string;
@@ -18,7 +20,7 @@ interface CatData {
 // Funzione per ottenere i dati delle categorie
 const getCatData = async (): Promise<CatData[]> => {
   try {
-    const response = await axios.get("/api/category");
+    const response = await axios.get("/api/Category");
     return response.data;
   } catch (error) {
     console.error("Error:", error);
