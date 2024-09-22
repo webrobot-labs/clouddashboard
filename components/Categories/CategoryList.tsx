@@ -1,4 +1,3 @@
-"use client";
 import CatListCss from "./categories-list.module.css";
 import React, { useEffect, useState } from "react";
 import InnerHeader from "../InnerHeader/InnerHeader";

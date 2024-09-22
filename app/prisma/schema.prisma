@@ -3,14 +3,14 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"  // PostgreSQL come provider
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  name  String
-  email String @unique
+  id           Int    @id @default(autoincrement())  // Autoincrement per PostgreSQL
+  name         String
+  email        String @unique
   passwordHash String
 }
 
@@ -31,11 +31,10 @@ model inputdataset {
 model script {
   id          Int    @id @default(autoincrement())
   name        String
-  description String?  // Optional description of the script
-  code        String?  // Contains the actual script code, nullable if not provided
-  jobs        job[]    @relation("JobToScript")  // Lists all jobs associated with this script
+  description String?  // Descrizione opzionale
+  code        String?  // Codice opzionale
+  jobs        job[]    @relation("JobToScript")  // Relazione con il model `job`
 }
-
 
 model job {
   id            Int            @id @default(autoincrement())
@@ -47,27 +46,26 @@ model job {
   categoryId    Int
   category      category       @relation(fields: [categoryId], references: [id])
   jobtoproject  jobtoproject[]
-  scriptId      Int?           // Chiave esterna semplice verso Script
+  scriptId      Int?           // Chiave esterna opzionale verso `script`
   script        script?        @relation(fields: [scriptId], references: [id], name: "JobToScript")
 
   @@index([categoryId], name: "idx_job_category")
   @@index([scriptId], name: "idx_job_script")
 }
 
-
 model jobtoproject {
   id             Int             @id @default(autoincrement())
   jobId          Int
   projectId      Int
   inputDatasetId Int?
-  inputdataset   inputdataset?   @relation(fields: [inputDatasetId], references: [id], map: "JobToProject_inputDatasetId_fkey")
-  job            job             @relation(fields: [jobId], references: [id], map: "JobToProject_jobId_fkey")
-  project        project         @relation(fields: [projectId], references: [id], map: "JobToProject_projectId_fkey")
+  inputdataset   inputdataset?   @relation(fields: [inputDatasetId], references: [id], map: "JobToProject_inputDatasetId_fk")
+  job            job             @relation(fields: [jobId], references: [id], map: "JobToProject_jobId_fk")
+  project        project         @relation(fields: [projectId], references: [id], map: "JobToProject_projectId_fk")
   outputdataset  outputdataset[]
 
-  @@index([inputDatasetId], map: "JobToProject_inputDatasetId_fkey")
-  @@index([jobId], map: "JobToProject_jobId_fkey")
-  @@index([projectId], map: "JobToProject_projectId_fkey")
+  @@index([inputDatasetId], map: "JobToProject_inputDatasetId_idx")
+  @@index([jobId], map: "JobToProject_jobId_idx")
+  @@index([projectId], map: "JobToProject_projectId_idx")
 }
 
 model outputdataset {
@@ -75,9 +73,9 @@ model outputdataset {
   creationDate     DateTime     @default(now())
   updateDate       DateTime?
   jobAssociationId Int
-  jobtoproject     jobtoproject @relation(fields: [jobAssociationId], references: [id], map: "OutputDataset_jobAssociationId_fkey")
+  jobtoproject     jobtoproject @relation(fields: [jobAssociationId], references: [id], map: "OutputDataset_jobAssociationId_fk")
 
-  @@index([jobAssociationId], map: "OutputDataset_jobAssociationId_fkey")
+  @@index([jobAssociationId], map: "OutputDataset_jobAssociationId_idx")
 }
 
 model project {
