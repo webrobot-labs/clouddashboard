@@ -1,7 +1,12 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/Categories/page": "app/Categories/page.js",
+  "/Home/page": "app/Home/page.js",
+  "/NewCategory/page": "app/NewCategory/page.js",
+  "/Profile/page": "app/Profile/page.js",
   "/Projects/page": "app/Projects/page.js",
+  "/Signin/page": "app/Signin/page.js",
+  "/Signup/page": "app/Signup/page.js",
   "/api/category/route": "app/api/category/route.js",
   "/api/health/route": "app/api/health/route.js",
   "/api/inputdataset/route": "app/api/inputdataset/route.js",

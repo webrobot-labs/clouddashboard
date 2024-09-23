@@ -133,7 +133,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
                   ></span>
                 </li>
                 <li>
-                  <Link href="/selfservicehome">
+                  <Link href="/Home">
                     <a className="active">
                       <Image
                         width={30}
@@ -146,7 +146,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/profile" className="topMenu">
+                  <Link href="/Profile" className="topMenu">
                     <a>
                       <Image
                         width={30}
@@ -159,7 +159,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/project" className="topMenu">
+                  <Link href="/Projects" className="topMenu">
                     <a>
                       <Image
                         width={30}
@@ -213,7 +213,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
               ></span>
             </li>
             <li onClick={handelClick}>
-              <Link className="forRemoveClass active" href="/project">
+              <Link className="forRemoveClass active" href="/Projects">
                 <a>
                   <Image
                     width={40}
@@ -227,7 +227,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
               </Link>
             </li>
             <li onClick={handelClick}>
-              <Link className="forRemoveClass" href="/new-project">
+              <Link className="forRemoveClass" href="/NewProject">
                 <a>
                   <Image
                     width={40}
@@ -241,7 +241,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
               </Link>
             </li>
             <li>
-              <Link className="forRemoveClass" href="/category">
+              <Link className="forRemoveClass" href="/Categories">
                 <a>
                   <Image
                     width={40}
@@ -258,7 +258,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
               <Link
                 onClick={toggle}
                 className="forRemoveClass"
-                href="/new-categories"
+                href="/NewCategory"
               >
                 <a>
                   <Image
@@ -273,7 +273,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
               </Link>
             </li>
             <li>
-              <Link className="forRemoveClass" href="/script">
+              <Link className="forRemoveClass" href="/Script">
                 <a>
                   <Image
                     width={50}
@@ -336,7 +336,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
                 <Link href="#0" onClick={toggle}>
                   CANCEL
                 </Link>
-                <Link href="/categories-list" className={InnHeader.style_two}>
+                <Link href="/Categories" className={InnHeader.style_two}>
                   SAVE
                 </Link>
               </div>

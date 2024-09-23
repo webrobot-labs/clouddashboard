@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import 'reflect-metadata'; // Importa reflect-metadata prima di tutto
-import "../../ioc";
+import "../../ioc/container";
 import { container } from 'tsyringe';
 import ScriptService from '../services/ScriptService';
 

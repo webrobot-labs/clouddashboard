@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import 'reflect-metadata'; // Importa reflect-metadata prima di tutto
 import { container } from 'tsyringe';
-import '../../../ioc/container'; // Importa il file di configurazione IoC
+import "../../ioc/container";
 import CategoryService from '../services/CategoryService'; // Assicurati di importare correttamente
 
 interface CategoryData {
