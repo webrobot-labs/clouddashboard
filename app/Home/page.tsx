@@ -17,7 +17,7 @@ const SelfServiceHome: React.FC = () => {
       <section>
         {/* Renderizza i link di navigazione separati */}
         <SelfServiceLinks />
-        <button onClick={logout}>Logout</button>
+   
       </section>
     </>
   );

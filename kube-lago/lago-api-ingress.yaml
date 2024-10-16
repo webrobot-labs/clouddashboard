@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: www.webrobot-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.className: "traefik"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"  # Questa annotazione è specifica per NGINX e può non essere necessaria o funzionale per Traefik.
+    traefik.ingress.kubernetes.io/transport.respondingTimeouts.idleTimeout: "600"
+    traefik.ingress.kubernetes.io/transport.respondingTimeouts.readTimeout: "600"
+    traefik.ingress.kubernetes.io/transport.respondingTimeouts.writeTimeout: "600"
+    traefik.ingress.kubernetes.io/custom-request-headers: "X-Forwarded-Proto:%[req.scheme"
+spec:
+  rules:
+    - host: apilago.webrobot.eu
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lago-api-service
+                port:
+                  number: 80

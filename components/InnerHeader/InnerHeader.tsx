@@ -13,13 +13,14 @@ import {
 } from "reactstrap";
 import Link from "next/link";
 import Image from "next/image";
-
+import { signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 interface InnerHeaderProps {}
 
 const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
   // Aggiungo il tipo per l'evento MouseEvent
   const handelClick = (e: MouseEvent<HTMLLIElement>) => {
-    Array.from(document.getElementsByClassName("forRemoveClass")).forEach(
+    Array.from(document.getElementsByClassName("forRemoveclassName")).forEach(
       (el) => {
         el.classList.remove("active");
       }
@@ -172,7 +173,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#0" className="topMenu">
+                  <Link href="https://www.webrobot.eu/help" className="topMenu">
                     <a>
                       <Image
                         width={30}
@@ -185,7 +186,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#0" className="topMenu">
+                  <Link href="#0" onClick={() => signOut()} className="topMenu">
                     <a>
                       <Image
                         width={30}
@@ -213,7 +214,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
               ></span>
             </li>
             <li onClick={handelClick}>
-              <Link className="forRemoveClass active" href="/Projects">
+              <Link className="forRemoveclassName active" href="/Projects">
                 <a>
                   <Image
                     width={40}
@@ -227,7 +228,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
               </Link>
             </li>
             <li onClick={handelClick}>
-              <Link className="forRemoveClass" href="/NewProject">
+              <Link className="forRemoveclassName" href="/NewProject">
                 <a>
                   <Image
                     width={40}
@@ -241,7 +242,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
               </Link>
             </li>
             <li>
-              <Link className="forRemoveClass" href="/Categories">
+              <Link className="forRemoveclassName" href="/Categories">
                 <a>
                   <Image
                     width={40}
@@ -257,7 +258,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
             <li>
               <Link
                 onClick={toggle}
-                className="forRemoveClass"
+                className="forRemoveclassName"
                 href="/NewCategory"
               >
                 <a>
@@ -273,7 +274,7 @@ const InnerHeader: React.FC<InnerHeaderProps> = (props) => {
               </Link>
             </li>
             <li>
-              <Link className="forRemoveClass" href="/Script">
+              <Link className="forRemoveclassName" href="/Script">
                 <a>
                   <Image
                     width={50}

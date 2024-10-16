@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lago-api
+  labels:
+    app: lago-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lago-api
+  template:
+    metadata:
+      labels:
+        app: lago-api
+    spec:
+      containers:
+      - name: lago-api
+        image: getlago/api:v1.12.3
+        command: ['./scripts/start.sh']
+        ports:
+        - containerPort: 3000
+        env:
+        - name: LAGO_API_URL
+          value: "https://lagoapi.webrobot.eu"
+        - name: DATABASE_URL
+          value: "postgresql://postgres:ha1LXtCLPRkp@nuvolaris-postgres.nuvolaris.svc.cluster.local:5432/lagodb?search_path=public"
+        - name: REDIS_URL
+          value: "redis://redis.nuvolaris.svc.cluster.local:6379"
+        - name: REDIS_PASSWORD
+          value: "vKDLcbBIEKxM"
+        - name: SECRET_KEY_BASE
+          value: "9647a8dc5a34158f3ad5dbf9c30e3a9d44079161f0ae0ebb015954e620c961a9c7c5edea561371dc67dc02f44d7223e1fb03d4b194ca3fcbcd39a271b368208d"
+        - name: LAGO_RSA_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: lago-rsa-private-key-secret
+              key: RSA_PRIVATE_KEY  # La chiave specificata nel secret
+        - name: RSA_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: lago-rsa-private-key-secret
+              key: RSA_PRIVATE_KEY  # Usa la stessa chiave per entrambe le variabili
+        - name: REDIS_PASSWORD
+          value: "vKDLcbBIEKxM"
+        - name: RAILS_ENV
+          value: "production"
+        - name: RAILS_LOG_TO_STDOUT
+          value: "true"
+        - name: LAGO_FRONT_URL
+          value: "https://lagoapp.webrobot.eu"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        volumeMounts:
+        - name: lago-storage
+          mountPath: /app/storage
+      volumes:
+      - name: lago-storage
+        persistentVolumeClaim:
+          claimName: nfs-pvc-lago

@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  namespace: default
+  labels:
+    app: keycloak
+spec:
+  replicas: 1  # For production, you should run multiple replicas for high availability
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - name: keycloak
+          image: bitnami/keycloak:latest  # Use the latest stable production image
+          env:
+            - name: KEYCLOAK_DATABASE_HOST
+              value: nuvolaris-postgres.nuvolaris.svc.cluster.local  # Change this to the actual hostname of your PostgreSQL service
+            - name: KEYCLOAK_DATABASE_PORT
+              value: "5432"
+            - name: KEYCLOAK_DATABASE_NAME
+              value: keycloak_db
+            - name: KEYCLOAK_DATABASE_USER
+              value: postgres # utente del database
+            - name: KEYCLOAK_DATABASE_PASSWORD
+              value: ha1LXtCLPRkp # password del database
+            - name: KEYCLOAK_ADMIN
+              value: admin # admin username
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: admin123 # admin password
+            - name: KEYCLOAK_PRODUCTION
+              value: "true"  # Enable production mode
+            - name: KEYCLOAK_HOSTNAME
+              value: "https://keycloak.webrobot.eu"
+            - name: KEYCLOAK_HOSTNAME_ADMIN
+              value: "https://keycloak.webrobot.eu"
+            - name: KEYCLOAK_PROXY_HEADERS
+              value: "xforwarded"
+            - name: PROXY_ADDRESS_FORWARDING
+              value: "true"
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /realms/master
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /realms/master
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"

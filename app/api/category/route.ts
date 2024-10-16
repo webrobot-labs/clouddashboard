@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import "../../ioc/container";
 import CategoryService from '../services/CategoryService'; // Assicurati di importare correttamente
 
+
 interface CategoryData {
   id: number;
   name: string;

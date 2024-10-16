@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}";
+self.__REACT_LOADABLE_MANIFEST='{"app/Credits/page.tsx -> bootstrap":{"id":5471,"files":["static/chunks/471.1fac04d8b298d924.js"]}}';

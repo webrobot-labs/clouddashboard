@@ -1,3 +1,4 @@
+"use client"; // Forza il rendering solo lato client
 import ProductListCss from "./project-list.module.css";
 import React, { useState } from "react";
 import InnerHeader from "../InnerHeader/InnerHeader";
@@ -173,20 +174,24 @@ function ProjectList({ projData }: ProjectListProps) {
       </section>
 
       {/* Modals */}
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Project Statistics</ModalHeader>
-        <ModalBody>Modal content goes here...</ModalBody>
-      </Modal>
+      
+      <div style={{ display: 'none' }}>
+  <Modal isOpen={modal} toggle={toggle}>
+    <ModalHeader toggle={toggle}>Project Statistics</ModalHeader>
+    <ModalBody>Modal content goes here...</ModalBody>
+  </Modal>
 
-      <Modal isOpen={modal1} toggle={toggle1}>
-        <ModalHeader toggle={toggle1}>Import or Associate Existing Bots</ModalHeader>
-        <ModalBody>Modal content goes here...</ModalBody>
-      </Modal>
+  <Modal isOpen={modal1} toggle={toggle1}>
+    <ModalHeader toggle={toggle1}>Import or Associate Existing Bots</ModalHeader>
+    <ModalBody>Modal content goes here...</ModalBody>
+  </Modal>
 
-      <Modal isOpen={modal2} toggle={toggle2}>
-        <ModalHeader toggle={toggle2}>Import or Associate Existing Bots</ModalHeader>
-        <ModalBody>Modal content goes here...</ModalBody>
-      </Modal>
+  <Modal isOpen={modal2} toggle={toggle2}>
+    <ModalHeader toggle={toggle2}>Import or Associate Existing Bots</ModalHeader>
+    <ModalBody>Modal content goes here...</ModalBody>
+  </Modal>
+</div>
+
     </>
   );
 }

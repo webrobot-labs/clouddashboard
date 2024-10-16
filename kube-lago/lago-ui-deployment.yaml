@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lago-front-deployment
+  labels:
+    app: lago-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lago-front
+  template:
+    metadata:
+      labels:
+        app: lago-front
+    spec:
+      containers:
+      - name: lago-front
+        image: getlago/front:v1.12.3
+        ports:
+        - containerPort: 80
+        env:
+        - name: API_URL
+          value: "lagoapi.webrobot.eu"
+        - name: APP_ENV
+          value: "${APP_ENV:-production}"
+        - name: LAGO_DISABLE_SIGNUP
+          value: "${LAGO_DISABLE_SIGNUP:-false}"
+        - name: NANGO_SECRET_KEY
+          value: "${NANGO_SECRET_KEY:-}"
+        # Use this command if you want to use SSL with Let's Encrypt
+        command: ["/bin/sh", "-c", "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'"]

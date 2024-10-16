@@ -1,5 +1,4 @@
 // ioc.ts
-
 import { container } from 'tsyringe';
 import PrismaCategoryRepository from '../api/repositories/PrismaCategoryRepository';
 import PrismaScriptRepository from '../api/repositories/PrismaScriptRepository';

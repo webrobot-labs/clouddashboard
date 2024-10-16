@@ -1,2 +1,4 @@
 
 /.npm-only-allow
+.env
+.env.local

@@ -4,7 +4,7 @@ import type ICategoryRepository from '../../interfaces/ICategoryRepository';
 
 @injectable()
 class CategoryService {
-  // Inietta il repository delle categorie come proprietà della classe
+  // Inietta il repository delle categorie come proprietà della classNamee
   constructor(
     @inject('ICategoryRepository') private categoryRepository: ICategoryRepository
   ) {}

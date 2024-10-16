@@ -243,7 +243,7 @@
     margin-left: -45px;
     margin-right: -45px;
   }
-  .modalBottomContent .row [class*="col-"] {
+  .modalBottomContent .row [className*="col-"] {
     padding-left: 45px;
     padding-right: 45px;
     margin-bottom: 65px;
@@ -386,7 +386,7 @@
       margin-left: -15px;
       margin-right: -15px;
     }
-    .modalBottomContent .row [class*="col-"] {
+    .modalBottomContent .row [className*="col-"] {
       padding-left: 15px;
       padding-right: 15px;
       margin-bottom: 15px;

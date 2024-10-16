@@ -1,0 +1,54 @@
+import NextAuth from "next-auth";
+import GitHubProvider from "next-auth/providers/github";
+import { UnstorageAdapter } from "@auth/unstorage-adapter";
+import { createStorage } from "unstorage";
+import memoryDriver from "unstorage/drivers/memory";
+
+// Configurazione storage (opzionale, ma rimossa la parte Vercel per semplificare)
+const storage = createStorage({
+  driver: memoryDriver(),
+});
+
+// Configurazione NextAuth con solo GitHub come provider
+export const config = {
+  providers: [
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    }),
+  ],
+  debug: true, // Abilita il debug per NextAuth
+  adapter: UnstorageAdapter(storage), // Usato solo se si necessita di storage personalizzato
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.accessToken) {
+        session.accessToken = token.accessToken;
+      }
+      return session;
+    },
+  },
+  theme: { logo: "https://authjs.dev/img/logo-sm.png" }, // Tema opzionale
+  //debug: process.env.NODE_ENV !== "production", // Abilita debug in ambiente di sviluppo
+};
+
+export const { handlers, auth, signIn, signOut } = NextAuth(config);
+
+// Estensione delle interfacce di NextAuth per JWT e Session
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    accessToken?: string;
+  }
+}
+

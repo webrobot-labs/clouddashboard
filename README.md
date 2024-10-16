@@ -98,7 +98,7 @@ This dashboard includes robust testing setups to ensure reliability.
 
 🎨 Styling and Design System
 
-The WebRobot Cloud Dashboard uses Bootstrap CSS for responsive design, making it easy to build consistent, mobile-friendly interfaces. You can customize styles using Bootstrap's built-in utility classes or create your own custom components.
+The WebRobot Cloud Dashboard uses Bootstrap CSS for responsive design, making it easy to build consistent, mobile-friendly interfaces. You can customize styles using Bootstrap's built-in utility classNamees or create your own custom components.
 💾 State Management
 
 For state management, this dashboard is flexible. You can choose a library like:

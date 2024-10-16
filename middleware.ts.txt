@@ -1,0 +1,29 @@
+import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from 'auth'; // Assicurati che il percorso sia corretto
+
+export async function middleware(request) {
+  // Crea un oggetto response simulato, poiché non abbiamo accesso a un oggetto NextApiResponse
+  const response = NextResponse.next();
+
+  // Ottieni la sessione
+  const session = await getServerSession(request, response, authOptions); // Aggiungi il secondo parametro response
+
+  // Percorsi da escludere
+  const publicPaths = ['/', '/home', '/images'];
+
+  // Verifica se il percorso è pubblico
+  const isPublicPath = publicPaths.some((path) => request.nextUrl.pathname.startsWith(path));
+
+  // Se non c'è sessione e il percorso non è pubblico, reindirizza a /login
+  if (!session && !isPublicPath) {
+    return NextResponse.redirect(new URL('/api/auth/signin', request.url));
+  }
+
+  return NextResponse.next(); // Altrimenti, continua il processo
+}
+
+// Configurazione del middleware per escludere i percorsi specificati
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'], // Esclude le API e le risorse statiche
+};

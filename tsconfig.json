@@ -10,6 +10,7 @@
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "noImplicitAny": false,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -20,13 +21,18 @@
     "experimentalDecorators": true,  // Abilita i decoratori
     "emitDecoratorMetadata": true,   // Genera metadati per i decoratori
     "baseUrl": ".",
-    "types": ["node", "jest", "@testing-library/jest-dom"],
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "types": ["node", "jest"],
     "plugins": [
       {
         "name": "next"
       }
     ]
+    ,
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mjs", "jest.config.js", ".next/types/**/*.ts", "app/page.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mjs", "jest.config.js", ".next/types/**/*.ts", "app/page.tsx", "auth", "next.config.mjs.old"],
   "exclude": ["node_modules"]
 }
