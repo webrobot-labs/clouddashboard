@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { getServerSession } from "next-auth";
+import { authOptions } from "auth"
 
 // Inizializza Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
@@ -13,13 +15,21 @@ interface RequestBody {
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions) as any;
+    console.warn(session);
+    if (!session || !session.token?.userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const userID = session.user.userId;
+
     // Forza il tipo del body della richiesta
     const body: RequestBody = await req.json() as RequestBody;
 
     const { amount } = body;
 
     // Crea una sessione di Checkout
-    const session = await stripe.checkout.sessions.create({
+    const checkoutSession = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
         {
@@ -36,9 +46,12 @@ export async function POST(req: NextRequest) {
       mode: "payment",
       success_url: `${process.env.NEXTAUTH_URL}/Credits`,  // URL dopo il successo
       cancel_url: `${process.env.NEXTAUTH_URL}/Credits`,    // URL dopo il fallimento
+      metadata: {
+        userID: userID,
+      },
     });
 
-    return NextResponse.json({ id: session.id });
+    return NextResponse.json({ id: checkoutSession.id });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Failed to create session" }, { status: 500 });

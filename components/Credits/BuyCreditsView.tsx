@@ -1,6 +1,7 @@
 import React from "react";
 import SingleCreditView from "./SingleCreditsView";
 import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "next-auth/react";
 interface StripeSessionResponse {
   id: string; // Definisce che la sessione ha un campo id di tipo string
 }
@@ -17,7 +18,6 @@ const BuyCredits: React.FC = () => {
 
   // Carica la chiave pubblica di Stripe
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
-
 
     // Funzione per l'abbonamento ricorrente
     const handleRecurringPayment = async (amount: number) => {
@@ -97,7 +97,7 @@ const BuyCredits: React.FC = () => {
                   <button
                     className="btn btn-primary"
                     style={{ borderRadius: "17.6px", paddingRight: "33px", paddingLeft: "33px" }}
-                    onClick={() => handleBuyCredits(credit.amount)} // Collega la funzione di acquisto qui
+                    onClick={() => handleBuyCredits(credit.amount)}                                   // Collega la funzione di acquisto qui
                   >
                     Buy
                   </button>
@@ -139,4 +139,6 @@ const BuyCredits: React.FC = () => {
 };
 
 export default BuyCredits;
+
+
 

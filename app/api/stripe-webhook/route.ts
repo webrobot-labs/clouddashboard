@@ -20,15 +20,24 @@ export async function POST(req: NextRequest) {
 
   // Gestisci l'evento di successo del pagamento
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
+    const session = event.data.object as any;
 
     // Logica per accreditare i crediti tramite Lago
     console.log(`Pagamento riuscito per la sessione ${session.id}`);
 
-
-    
     // Esempio: chiama API di Lago per accreditare crediti all'utente
-     await createOrUpdateWallet(session.metadata.userId, session.amount_total / 100);
+    await createOrUpdateWallet(session.metadata.userId, session.amount_total);
+  }
+
+  // Gestisci l'evento di successo della sottoscrizione
+  if (event.type === "invoice.payment_succeeded") {
+    const invoice = event.data.object as any;
+
+    // Logica per gestire il successo della sottoscrizione
+    console.log(`Sottoscrizione pagata con successo per l'utente ${invoice.customer}`);
+
+    // Esempio: chiama API di Lago per accreditare crediti per la sottoscrizione
+    await createOrUpdateWallet(invoice.metadata.userId, invoice.amount_paid);
   }
 
   return NextResponse.json({ received: true });
@@ -84,7 +93,7 @@ const createOrUpdateWallet = async (customerId, credits) => {
         {
           wallet: {
             name: "Prepaid",
-            rate_amount: "1.5",
+            rate_amount: "1",
             paid_credits: credits.toString(), // Aggiungi i nuovi crediti
             granted_credits: "0.0", // Puoi impostare granted_credits se necessario
             currency: "USD",

@@ -2,3 +2,5 @@
 /.npm-only-allow
 .env
 .env.local
+.next/
+node_modules/

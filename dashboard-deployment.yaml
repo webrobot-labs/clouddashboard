@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clouddashboard-deployment
+  labels:
+    app: clouddashboard
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: clouddashboard
+  template:
+    metadata:
+      labels:
+        app: clouddashboard
+    spec:
+      containers:
+        - name: clouddashboard
+          image: 
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:ha1LXtCLPRkp@localhost:5432/clouddashboard_db"
+            - name: KEYCLOAK_CLIENT_ID
+              value: "local-webrobot-client"
+            - name: KEYCLOAK_CLIENT_SECRET
+              value: "gemceVyHhwKNgfk9HvyYg3myGFG4DSJn"
+            - name: KEYCLOAK_REALM
+              value: "webrobot-realm"
+            - name: KEYCLOAK_URL
+              value: "https://keycloak.webrobot.eu/realms/webrobot-realm/protocol/openid-connect"
+            - name: KEYCLOAK_AUTH_URL
+              value: ""
+            - name: KEYCLOAK_TOKEN_URL
+              value: ""
+            - name: NEXT_PUBLIC_KEYCLOAK_URL
+              value: ""
+            - name: NEXT_PUBLIC_KEYCLOAK_REALM
+              value: ""
+            - name: KEYCLOAK_ISSUER
+              value: ""
+            - name: TEST_USER_USERNAME
+              value: ""
+            - name: TEST_USER_PASSWORD
+              value: ""
+            - name: GITHUB_CLIENT_ID
+              value: ""
+            - name: GITHUB_CLIENT_SECRECT
+              value: ""
+            - name: NEXTAUTH_SECRET
+              value: ""
+            - name: NEXTAUTH_URL
+              value: ""
+            - name: STRIPE_SECRET_KEY
+              value: ""
+            - name: STRIPE_WEBHOOK_SECRET
+              value: ""
+            - name: LAGO_API_BASE_URL
+              value: ""
+            - name: LAGO_API_KEY
+              value: ""
+            - name: LAGO_ORGANIZATION_ID
+              value: ""
+            - name: NEXT_PUBLIC_STRIPE_PUBLIC_KEY
+              value: ""

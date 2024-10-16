@@ -39,7 +39,7 @@ export const authOptions = {
         // Se esiste un cliente con quell'email, restituire il suo ID
         if (searchResponse.data && searchResponse.data.customers && searchResponse.data.customers.length > 0) {
           console.log('Customer found:', searchResponse.data.customers[0]);
-          return searchResponse.data.customers[0].id; // Restituisce l'ID del primo customer trovato
+          return searchResponse.data.customers[0].lago_id; // Restituisce l'ID del primo customer trovato
         }
     
         // Se il cliente non esiste, crearlo
@@ -62,7 +62,7 @@ export const authOptions = {
         );
     
         console.log('Customer created successfully:', createResponse.data);
-        return createResponse.data.customer.id; // Restituisce l'ID del customer creato
+        return createResponse.data.customer.lago_id; // Restituisce l'ID del customer creato
       } catch (error) {
         //console.error('Error in getOrCreateLagoCustomer:', error.response ? error.response.data : error.message);
         throw new Error('Failed to create or retrieve Lago customer');
@@ -102,9 +102,11 @@ export const authOptions = {
       // Aggiungi i campi personalizzati alla sessione
       session.user.stripeCustomerId = token.stripeCustomerId;
       session.user.lagoUserId = token.lagoUserId;
+      session.user.userId = token.userId;
       session.user.name = token.name;
       session.user.email = token.email;
       session.accessToken = typeof token.accessToken === 'string' ? token.accessToken : undefined;
+      session.token = token;
       return session;
     },
 
@@ -162,8 +164,10 @@ declare module "next-auth" {
       email?: string;
       stripeCustomerId?: string;
       lagoUserId?: string;
+      userId?:string;
     };
     accessToken?: string;
+    token?: JWT;
   }
 }
 
